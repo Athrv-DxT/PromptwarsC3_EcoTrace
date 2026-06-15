@@ -1,6 +1,6 @@
 import { describe, expect, test, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useLocalStorage, useDebounce, useCarbon, useAirQuality } from '../hooks';
+import { useLocalStorage, useDebounce, useCarbon, useAirQuality, useCountryElectricity } from '../hooks';
 
 // Mock weatherService
 vi.mock('../services/weatherService', () => ({
@@ -8,6 +8,14 @@ vi.mock('../services/weatherService', () => ({
     pm2_5: 9.8,
     co: 150,
     temperature: 19.5
+  })
+}));
+
+// Mock countryService
+vi.mock('../services/countryService', () => ({
+  fetchCountryElectricityInfo: vi.fn().mockResolvedValue({
+    gridFactor: 0.233,
+    displayRegion: 'Western Europe'
   })
 }));
 
@@ -105,5 +113,18 @@ describe('Hooks Unit Tests', () => {
     expect(result.current.co).toBe(150);
     expect(result.current.temperature).toBe(19.5);
     expect(result.current.locationName).toBe('Local Area');
+  });
+
+  test('useCountryElectricity fetches electricity parameters', async () => {
+    const { result } = renderHook(() => useCountryElectricity('Germany'));
+    
+    expect(result.current.countryLoading).toBe(true);
+
+    await vi.waitFor(() => {
+      expect(result.current.countryLoading).toBe(false);
+    });
+
+    expect(result.current.gridFactor).toBe(0.233);
+    expect(result.current.countryRegionInfo).toContain('Western Europe');
   });
 });
