@@ -1,17 +1,10 @@
 // src/utils/recommendations.js
 
 /**
- * TEST CASES:
- * Input breakdown: { transport: 3000, flights: 2400, home: 2000, diet: 2600, shopping: 600 }
- * Expected: returns array of sorted recommendations, EV switch (saving 1800), flight offset (1200),
- * renewable energy (1600), plant based (800), and second hand (300).
- * Sorted descending by saving.
- */
-
-/**
  * Generates personalized carbon reduction recommendations
  * based on the user's footprint breakdown.
  * Mimics AI personalization through rule-based logic with priority scoring.
+ * 
  * @param {Object} breakdown - { transport, flights, home, diet, shopping } in kg CO2e/year
  * @returns {Array} top 5 recommendations sorted by potential impact
  */

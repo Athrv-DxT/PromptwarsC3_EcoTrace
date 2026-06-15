@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ENVIRONMENTAL_FACTS, CAROUSEL_INTERVAL_MS } from '../../constants';
 
 // Memoized FactCard child component
 const FactCard = React.memo(({ fact, number, total }) => {
@@ -16,16 +17,12 @@ const FactCard = React.memo(({ fact, number, total }) => {
 
 FactCard.displayName = 'FactCard';
 
+/**
+ * FactCarousel component rendering rotating facts regarding climate change and carbon mitigation.
+ * 
+ * @returns {React.JSX.Element} Carousel display.
+ */
 export default function FactCarousel() {
-  const facts = [
-    "The average person in India emits 1.9 tonnes CO2e/year — one of the lowest in the world",
-    "Aviation is responsible for 3.5% of effective climate forcing despite carrying only 11% of passengers",
-    "A plant-based diet for one year saves the equivalent of driving 8,000 km in a petrol car",
-    "Renewable energy capacity surpassed coal globally for the first time in 2023",
-    "The 1.5°C target requires global per-capita emissions to fall to 2.5 tonnes by 2030",
-    "Extending a smartphone's life by just one extra year saves 70 kg CO2e — equivalent to 333 km of driving"
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -33,11 +30,11 @@ export default function FactCarousel() {
     if (isPaused) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % facts.length);
-    }, 5000);
+      setCurrentIndex((prev) => (prev + 1) % ENVIRONMENTAL_FACTS.length);
+    }, CAROUSEL_INTERVAL_MS);
 
     return () => clearInterval(interval);
-  }, [isPaused, facts.length]);
+  }, [isPaused]);
 
   return (
     <div
@@ -49,21 +46,16 @@ export default function FactCarousel() {
       aria-roledescription="carousel"
       aria-label="Environmental Facts Carousel"
     >
-      {/* Fact Card Slide */}
-      <div 
-        aria-live="polite" 
-        className="transition-all duration-300"
-      >
+      <div aria-live="polite" className="transition-all duration-300">
         <FactCard 
-          fact={facts[currentIndex]} 
+          fact={ENVIRONMENTAL_FACTS[currentIndex]} 
           number={currentIndex + 1} 
-          total={facts.length} 
+          total={ENVIRONMENTAL_FACTS.length} 
         />
       </div>
 
-      {/* Slide dots indicators */}
       <div className="flex justify-center gap-2 pb-2">
-        {facts.map((_, idx) => (
+        {ENVIRONMENTAL_FACTS.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrentIndex(idx)}

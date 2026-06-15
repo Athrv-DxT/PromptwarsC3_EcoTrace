@@ -4,6 +4,32 @@ EcoTrace is a production-ready Carbon Footprint Awareness Platform built as a Re
 
 ---
 
+## Architecture & Engineering Principles
+
+EcoTrace follows a production-grade modular architecture.
+
+### Layers
+- **Presentation Layer (Components)**: Highly optimized React components kept strictly below 150 lines.
+- **Context Layer (State Management)**: Carbon context coordinating application state transitions and local storage.
+- **Services Layer (API Integrations)**: Clean abstractions for REST Countries, Open-Meteo climate telemetry, and Gemini AI.
+- **Utility Layer (Business Logic)**: Pure functions handling carbon metrics calculations, input validation, and date formatting.
+- **Testing Layer (Automated Validation)**: Comprehensive unit and integration test coverage for components, hooks, services, and utilities.
+
+### Principles
+- ✓ **Separation of Concerns**: Business logic decoupled from components.
+- ✓ **Single Responsibility Principle**: Focus-driven modules.
+- ✓ **Accessibility First**: WCAG 2.1 AA keyboard focus, label relations, ARIA live regions.
+- ✓ **Secure by Design**: Explicit CSP headers, Permission Policies, input validation.
+- ✓ **Performance Optimized**: Lazy loaded code splits, memoized hook calculations.
+- ✓ **AI Powered**: Dynamic carbon-reduction recommendations via Gemini model integration.
+- ✓ **Production Ready**: Zero-warning build compatibility.
+- ✓ **Scalable Architecture**: Flexible service configurations.
+- ✓ **Automated Testing**: Robust mock integration validations.
+- ✓ **Predictive Analytics**: Multi-year emissions projection timeline.
+- ✓ **Personalized Recommendations**: Score-prioritized mitigation strategies.
+
+---
+
 ## Features
 
 1. **Multi-Step Footprint Calculator**:

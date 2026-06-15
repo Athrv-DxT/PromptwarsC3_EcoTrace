@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
-import { formatTonnes } from '../../utils/formatters';
+import { formatTonnes } from '../../utils';
+import { SIMULATION_SAVINGS, TIMELINE_MULTIPLIERS } from '../../constants';
 
+/**
+ * FutureImpactSimulator component to allow users to toggle lifestyle adjustments
+ * and see projections of their 6-month, 1-year, and 5-year emissions totals.
+ * 
+ * @returns {React.JSX.Element} Simulator layout.
+ */
 export default function FutureSimulator() {
   const { totalKg } = useCarbonContext();
 
@@ -19,24 +26,16 @@ export default function FutureSimulator() {
     }));
   };
 
-  // Hardcoded standard annual savings in kg CO2e
-  const SIM_SAVINGS = {
-    ev: 1200,      // Switch to electric vehicle
-    plastic: 80,   // Stop single-use plastic
-    transit: 600,  // Swap 2 weekly car trips for public transit
-    solar: 800     // Adopt solar or green tariff
-  };
-
   // Sum yearly savings based on selected toggles
   let annualSaving = 0;
-  if (simulations.ev) annualSaving += SIM_SAVINGS.ev;
-  if (simulations.plastic) annualSaving += SIM_SAVINGS.plastic;
-  if (simulations.transit) annualSaving += SIM_SAVINGS.transit;
-  if (simulations.solar) annualSaving += SIM_SAVINGS.solar;
+  if (simulations.ev) annualSaving += SIMULATION_SAVINGS.ev;
+  if (simulations.plastic) annualSaving += SIMULATION_SAVINGS.plastic;
+  if (simulations.transit) annualSaving += SIMULATION_SAVINGS.transit;
+  if (simulations.solar) annualSaving += SIMULATION_SAVINGS.solar;
 
-  const saving6mo = Math.round(annualSaving * 0.5);
-  const saving1yr = Math.round(annualSaving);
-  const saving5yr = Math.round(annualSaving * 5);
+  const saving6mo = Math.round(annualSaving * TIMELINE_MULTIPLIERS.SIX_MONTHS);
+  const saving1yr = Math.round(annualSaving * TIMELINE_MULTIPLIERS.ONE_YEAR);
+  const saving5yr = Math.round(annualSaving * TIMELINE_MULTIPLIERS.FIVE_YEARS);
 
   const startScore = totalKg;
   const score6mo = Math.max(0, startScore - saving6mo);
@@ -89,7 +88,6 @@ export default function FutureSimulator() {
       <div className="pt-4">
         <h4 className="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-6">Projected Savings Timeline</h4>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-4 relative">
-          
           {/* Connecting line in background for large screens */}
           <div className="absolute top-4 left-[12.5%] right-[12.5%] h-0.5 bg-gray-200 dark:bg-gray-700 hidden md:block" aria-hidden="true" />
 

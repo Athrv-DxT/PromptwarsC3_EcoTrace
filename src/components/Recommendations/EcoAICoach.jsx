@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
+import { generateCoachingAdvice, getFallbackResponse } from '../../services';
 
+/**
+ * EcoAI Sustainability Coach component.
+ * Allows users to write queries about their daily habits and receive AI advice or fallback suggestions.
+ * 
+ * @returns {React.JSX.Element} Coach container.
+ */
 export default function EcoAICoach() {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState('');
@@ -14,113 +21,13 @@ export default function EcoAICoach() {
     setError(null);
     setResult('');
 
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-    if (!apiKey) {
-      // Smart local pattern-matching fallback parser
-      setTimeout(() => {
-        const queryLower = query.toLowerCase();
-        let status = 'moderate';
-        let opportunities = [];
-        let savings = 380;
-
-        if (queryLower.includes('ev') || queryLower.includes('electric vehicle')) {
-          status = 'lower';
-          opportunities.push('Charge EV during off-peak hours to reduce grid pressure.');
-          opportunities.push('Plan routes ahead to optimize regenerative braking efficiency.');
-          opportunities.push('Maintain tire pressure to optimize electric range.');
-          savings = 190;
-        } else if (queryLower.includes('car') || queryLower.includes('drive')) {
-          status = 'above average';
-          opportunities.push('Replace 2 car trips per week with cycling or public transit.');
-          opportunities.push('Combine errands to avoid multiple cold starts.');
-          opportunities.push('Practice eco-driving by avoiding rapid acceleration.');
-          savings = 620;
-        } else {
-          opportunities.push('Replace 2 AC hours with ceiling fan usage.');
-          opportunities.push('Batch errands into fewer weekly trips.');
-          opportunities.push('Reduce meat consumption by one meal weekly.');
-        }
-
-        if (queryLower.includes('meat') || queryLower.includes('beef')) {
-          opportunities.push('Introduce two meat-free days per week to cut diet footprint.');
-          savings += 200;
-        }
-
-        if (queryLower.includes('ac') || queryLower.includes('air conditioning')) {
-          opportunities.push('Install a programmable thermostat set to 25°C when away.');
-          savings += 150;
-        }
-
-        const simulatedResponse = `Your estimated annual carbon footprint is **${status}**.
-
-### Top Opportunities:
-1. ${opportunities[0]}
-2. ${opportunities[1]}
-3. ${opportunities[2] || 'Opt for second-hand items next shopping run.'}
-
-### Estimated Reduction:
-* **-${savings} kg CO₂ / year**`;
-
-        setResult(simulatedResponse);
-        setLoading(false);
-      }, 800);
-      return;
-    }
-
-    // Call actual Gemini API (gemini-1.5-flash)
     try {
-      const prompt = `You are the EcoTrace Sustainability Coach. The user states their current lifestyle habits: "${query}". 
-Provide a personalized carbon footprint analysis and actionable opportunities.
-Format the output in clean markdown strictly like this:
-"Your estimated annual carbon footprint is [low/moderate/high].
-
-### Top Opportunities:
-1. [Opportunity 1 details]
-2. [Opportunity 2 details]
-3. [Opportunity 3 details]
-
-### Estimated Reduction:
-* **-[X] kg CO₂ / year**"`;
-
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Gemini API returned status ${response.status}`);
-      }
-
-      const data = await response.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      
-      if (!text) {
-        throw new Error('Empty response from Gemini model');
-      }
-
+      const text = await generateCoachingAdvice(query);
       setResult(text);
     } catch (err) {
       console.error('Gemini API Error:', err);
       setError('Failed to reach Gemini Sustainability Coach. Running smart fallback evaluation.');
-      // Execute fallback immediately upon actual API failure
-      const fallbackResponse = `Your estimated annual carbon footprint is **moderate**.
-
-### Top Opportunities:
-1. Replace 2 AC hours with ceiling fan usage.
-2. Batch errands into fewer weekly trips.
-3. Reduce meat consumption by one meal weekly.
-
-### Estimated Reduction:
-* **-380 kg CO₂ / year**`;
+      const fallbackResponse = getFallbackResponse(query);
       setResult(fallbackResponse);
     } finally {
       setLoading(false);
@@ -161,12 +68,7 @@ Format the output in clean markdown strictly like this:
         </button>
       </form>
 
-      {/* Results output */}
-      <div 
-        className="aria-live-polite" 
-        aria-live="polite" 
-        aria-atomic="true"
-      >
+      <div className="aria-live-polite" aria-live="polite" aria-atomic="true">
         {error && (
           <p className="text-xs font-bold text-amber-600 dark:text-amber-400 mb-2">
             ⚠️ {error}

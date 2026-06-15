@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
+import { LOGO_RAPID_CLICKS_LIMIT } from '../../constants';
 
+/**
+ * Global Header component. Coordinates theme toggles and resets,
+ * and handles the logo 5-click rapid populate feature.
+ * 
+ * @returns {React.JSX.Element} Sticky header container.
+ */
 export default function Header() {
   const { triggerAutoPopulate, resetCalculator } = useCarbonContext();
   const [clickCount, setClickCount] = useState(0);
@@ -30,7 +37,7 @@ export default function Header() {
     const now = Date.now();
     if (now - lastClick < 1000) {
       const newCount = clickCount + 1;
-      if (newCount >= 5) {
+      if (newCount >= LOGO_RAPID_CLICKS_LIMIT) {
         triggerAutoPopulate();
         setClickCount(0);
       } else {

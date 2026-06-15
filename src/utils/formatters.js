@@ -1,13 +1,13 @@
 /**
- * Formats carbon values and date strings.
- * 
- * TEST CASES:
- * formatTonnes(3402) => '3.40'
- * formatTonnes(12000) => '12.00'
- * formatTonnes(0) => '0.00'
- * formatDate('2026-06-15T18:50:35.000Z') => Localized date representation, e.g. 'Jun 15, 2026'
+ * Formatting utilities for metrics and dates.
  */
 
+/**
+ * Formats carbon values in kg to a fixed two-decimal string representing tonnes.
+ * 
+ * @param {number|string} kg - The weight in kilograms.
+ * @returns {string} The formatted weight in tonnes (e.g. "3.40").
+ */
 export function formatTonnes(kg) {
   const num = Number(kg);
   if (isNaN(num) || !isFinite(num)) {
@@ -16,6 +16,12 @@ export function formatTonnes(kg) {
   return (num / 1000).toFixed(2);
 }
 
+/**
+ * Converts an ISO date string to a human-readable localized short date format.
+ * 
+ * @param {string} isoString - The ISO date string.
+ * @returns {string} Localized date string (e.g., "Jun 15, 2026") or empty string if invalid.
+ */
 export function formatDate(isoString) {
   if (!isoString) return '';
   try {

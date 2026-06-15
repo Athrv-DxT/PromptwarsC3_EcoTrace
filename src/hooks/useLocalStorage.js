@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 /**
  * Custom hook to read/write state from/to localStorage.
+ * Maintains state synchronization with local storage logs.
  * 
- * TEST CASES:
- * const [history, setHistory] = useLocalStorage('ecotrace_history', [])
- * setHistory([{ score: 5000, date: '2026-06-15' }]) => window.localStorage contains key 'ecotrace_history' with stringified value.
- * Isolation Check: No PII stored, only score and date.
+ * @param {string} key - The local storage key string.
+ * @param {*} initialValue - The fallback value if storage is empty.
+ * @returns {[*, Function]} State value and its update setter function.
  */
 export function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(() => {

@@ -2,14 +2,13 @@ import { useMemo } from 'react';
 import { TRANSPORT, HOME, DIET_ANNUAL_KG, SHOPPING } from '../constants/emissionFactors';
 
 /**
- * TEST CASES:
- * Input: { carType: 'petrol', weeklyKm: 100, shortFlights: 2, longFlights: 1 }
- * Expected transport total: (100 * 52 * 0.21) + (2 * 255) + (1 * 1200) = 3,402 kg CO2e
- *
- * Input: { dietType: 'vegan', monthlyKwh: 200, heatingType: 'heatpump' }
- * Expected: diet 1500 + (200*12*0.233) + (200*12*0.07) = 1500 + 559.2 + 168 = 2,227.2 kg CO2e
+ * Core carbon emissions calculator.
+ * Computes individual transit, home energy, diet, and shopping footprints.
+ * 
+ * @param {Object} inputs - Carbon inputs state object.
+ * @param {number} gridFactor - Grid electricity emission factor.
+ * @returns {{ breakdown: { transport: number, flights: number, home: number, diet: number, shopping: number }, totalKg: number, totalTonnes: number }} Footprint calculations.
  */
-
 export function calculateCarbon(inputs, gridFactor) {
   // 1. TRANSPORT CALCULATION
   const carType = inputs.carType || 'none';
@@ -86,9 +85,15 @@ export function calculateCarbon(inputs, gridFactor) {
   };
 }
 
+/**
+ * Custom React hook wrapper to calculate footprint breakdown memoized.
+ * 
+ * @param {Object} inputs - Carbon inputs state object.
+ * @param {number} gridFactor - Grid electricity emission factor.
+ * @returns {Object} Footprint calculations.
+ */
 export function useCarbon(inputs, gridFactor) {
   return useMemo(() => {
     return calculateCarbon(inputs, gridFactor);
   }, [inputs, gridFactor]);
 }
-

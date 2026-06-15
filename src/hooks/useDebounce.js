@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 /**
  * Custom hook to debounce a fast-changing state.
  * 
- * TEST CASES:
- * const debounced = useDebounce(value, 250)
- * Rapid updates to value within 200ms -> debounced remains unchanged until 250ms has elapsed since the last update.
+ * @param {*} value - The input value to debounce.
+ * @param {number} delay - Debounce delay in milliseconds.
+ * @returns {*} The debounced value.
  */
 export function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
