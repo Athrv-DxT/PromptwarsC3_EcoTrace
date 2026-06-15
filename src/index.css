@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-950 dark:bg-gray-900 dark:text-gray-50 antialiased selection:bg-primary-600/20;
+  }
+
+  /* Accessibility focus ring configuration */
+  :focus-visible {
+    outline: 2px solid #16a34a !important;
+    outline-offset: 2px !important;
+  }
+}
+
+/* Custom transitions and slider styling for premium look */
+input[type="range"]::-webkit-slider-thumb {
+  @apply h-5 w-5 rounded-full bg-primary-600 border border-white cursor-pointer shadow-sm hover:scale-110 active:scale-95 transition-transform duration-100;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply h-5 w-5 rounded-full bg-primary-600 border border-white cursor-pointer shadow-sm hover:scale-110 active:scale-95 transition-transform duration-100;
+}
