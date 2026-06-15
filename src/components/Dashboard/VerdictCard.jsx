@@ -1,4 +1,3 @@
-import React from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { getFootprintVerdict } from '../../utils';
 

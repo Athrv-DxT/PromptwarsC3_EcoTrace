@@ -1,4 +1,3 @@
-import React from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { formatTonnes, formatDate } from '../../utils';
 
@@ -11,7 +10,7 @@ export default function ProgressSummary() {
   const { history } = useCarbonContext();
 
   // Comparison logic with previous calculation
-  let comparisonText = '';
+  let comparisonText;
   let trendIndicator = null;
   if (history.length > 1) {
     const currentScore = history[0].score;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { formatTonnes } from '../../utils';
 import { SIMULATION_SAVINGS, TIMELINE_MULTIPLIERS } from '../../constants';

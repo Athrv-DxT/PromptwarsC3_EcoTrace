@@ -32,7 +32,7 @@ export function formatDate(isoString) {
       month: 'short',
       day: 'numeric',
     });
-  } catch (e) {
+  } catch {
     return '';
   }
 }

@@ -1,9 +1,40 @@
-import { GRID_FACTORS, API_TIMEOUT_MS } from '../constants/appConstants';
+import { GRID_FACTORS } from '../constants/appConstants';
 
 /**
  * Service to interact with the REST Countries API.
  * Contains logic to fetch country metadata and map region grid factors.
  */
+
+/**
+ * Resolves estimated fallback electricity parameters based on country name matching.
+ * 
+ * @param {string} countryName - The name of the country.
+ * @returns {{ gridFactor: number, displayRegion: string }} Grid factor and region name.
+ */
+export function getFallbackElectricityInfo(countryName) {
+  if (!countryName) {
+    return { gridFactor: GRID_FACTORS.DEFAULT, displayRegion: 'Global Average' };
+  }
+  const nameLower = countryName.toLowerCase();
+  let matchedFactor = GRID_FACTORS.DEFAULT;
+  let displayRegion = 'Global Average';
+
+  if (nameLower.includes('india')) {
+    matchedFactor = GRID_FACTORS.INDIA;
+    displayRegion = 'South Asia (India)';
+  } else if (nameLower.includes('united kingdom') || nameLower.includes('germany') || nameLower.includes('france') || nameLower.includes('italy')) {
+    matchedFactor = GRID_FACTORS.EUROPE;
+    displayRegion = 'Western Europe';
+  } else if (nameLower.includes('united states') || nameLower.includes('canada')) {
+    matchedFactor = GRID_FACTORS.NORTH_AMERICA;
+    displayRegion = 'North America';
+  } else if (nameLower.includes('china') || nameLower.includes('japan')) {
+    matchedFactor = GRID_FACTORS.EAST_ASIA;
+    displayRegion = 'East Asia';
+  }
+
+  return { gridFactor: matchedFactor, displayRegion };
+}
 
 /**
  * Fetches country information and maps it to a regional grid emission factor.
@@ -75,24 +106,6 @@ export async function fetchCountryElectricityInfo(countryName, signal) {
       throw err;
     }
     
-    // Fallback checks on catch
-    let matchedFactor = GRID_FACTORS.DEFAULT;
-    let displayRegion = 'Global Average';
-
-    if (nameLower.includes('india')) {
-      matchedFactor = GRID_FACTORS.INDIA;
-      displayRegion = 'South Asia (India)';
-    } else if (nameLower.includes('united kingdom') || nameLower.includes('germany') || nameLower.includes('france') || nameLower.includes('italy')) {
-      matchedFactor = GRID_FACTORS.EUROPE;
-      displayRegion = 'Western Europe';
-    } else if (nameLower.includes('united states') || nameLower.includes('canada')) {
-      matchedFactor = GRID_FACTORS.NORTH_AMERICA;
-      displayRegion = 'North America';
-    } else if (nameLower.includes('china') || nameLower.includes('japan')) {
-      matchedFactor = GRID_FACTORS.EAST_ASIA;
-      displayRegion = 'East Asia';
-    }
-
-    return { gridFactor: matchedFactor, displayRegion };
+    return getFallbackElectricityInfo(countryName);
   }
 }

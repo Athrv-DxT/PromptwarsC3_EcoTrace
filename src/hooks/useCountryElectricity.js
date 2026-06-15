@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchCountryElectricityInfo } from '../services';
+import { fetchCountryElectricityInfo, getFallbackElectricityInfo } from '../services';
 import { GRID_FACTORS, API_TIMEOUT_MS } from '../constants';
 
 /**
@@ -43,23 +43,8 @@ export function useCountryElectricity(countryName) {
         if (!active) return;
         console.error('REST Countries API error:', err);
         
-        let matchedFactor = GRID_FACTORS.DEFAULT;
-        let displayRegion = 'Global Average';
-        const name = countryName.toLowerCase();
-
-        if (name.includes('india')) {
-          matchedFactor = GRID_FACTORS.INDIA;
-          displayRegion = 'South Asia (India)';
-        } else if (name.includes('united kingdom') || name.includes('germany') || name.includes('france') || name.includes('italy')) {
-          matchedFactor = GRID_FACTORS.EUROPE;
-          displayRegion = 'Western Europe';
-        } else if (name.includes('united states') || name.includes('canada')) {
-          matchedFactor = GRID_FACTORS.NORTH_AMERICA;
-          displayRegion = 'North America';
-        } else if (name.includes('china') || name.includes('japan')) {
-          matchedFactor = GRID_FACTORS.EAST_ASIA;
-          displayRegion = 'East Asia';
-        }
+        // Resolve fallback factor from the centralized helper
+        const { gridFactor: matchedFactor, displayRegion } = getFallbackElectricityInfo(countryName);
 
         setGridFactor(matchedFactor);
         setCountryRegionInfo(`You're in ${displayRegion} (estimated fallback) — your grid emission factor is ${matchedFactor} kg CO2e/kWh.`);

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAirQuality } from '../../hooks/useAirQuality';
 import { PM25_THRESHOLDS } from '../../constants';
 

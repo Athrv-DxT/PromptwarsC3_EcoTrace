@@ -41,7 +41,8 @@ export function calculateCarbon(inputs, gridFactor) {
   const heatingType = inputs.heatingType || 'none';
   const monthlyGas = Number(inputs.monthlyGas) || 0;
 
-  const effectiveGridFactor = Number(gridFactor) !== undefined && !isNaN(Number(gridFactor)) ? Number(gridFactor) : HOME.UK_GRID_KG_PER_KWH;
+  const numFactor = Number(gridFactor);
+  const effectiveGridFactor = !isNaN(numFactor) ? numFactor : HOME.UK_GRID_KG_PER_KWH;
 
   const electricityEmissions = monthlyKwh * 12 * effectiveGridFactor;
 

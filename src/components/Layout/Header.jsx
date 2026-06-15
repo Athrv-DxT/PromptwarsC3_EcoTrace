@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { LOGO_RAPID_CLICKS_LIMIT } from '../../constants';
 
