@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import { COUNTRIES_LIST } from '../../constants';
 

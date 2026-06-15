@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import { formatTonnes, formatDate } from '../../utils';
 

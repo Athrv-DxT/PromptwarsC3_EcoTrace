@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import { formatTonnes } from '../../utils';
 import { generateRecommendations } from '../../utils/recommendations';

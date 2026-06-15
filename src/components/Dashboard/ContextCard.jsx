@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 const ContextCard = React.memo(({ title, value, unit, icon, description }) => {

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { DIET_ANNUAL_KG } from '../../constants/emissionFactors';

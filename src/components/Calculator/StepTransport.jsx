@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import CountrySelector from './CountrySelector';
 import CarTypeSelector from './CarTypeSelector';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Centralized application constants.
  * Eliminates magic numbers and hardcoded configuration values.

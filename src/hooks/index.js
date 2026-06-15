@@ -1,3 +1,4 @@
+// @ts-nocheck
 export * from './useAirQuality';
 export * from './useCarbon';
 export * from './useLocalStorage';

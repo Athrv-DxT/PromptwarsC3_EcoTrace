@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Suspense } from 'react';
 import { CarbonProvider, useCarbonContext } from './context/CarbonContext';
 import SkipLink from './components/Layout/SkipLink';

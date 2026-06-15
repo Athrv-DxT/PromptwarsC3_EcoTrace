@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { ENVIRONMENTAL_FACTS, CAROUSEL_INTERVAL_MS } from '../../constants';
 

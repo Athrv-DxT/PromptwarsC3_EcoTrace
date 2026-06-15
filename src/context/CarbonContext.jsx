@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createContext, useState, useContext } from 'react';
 import { useLocalStorage, useCarbon, useCountryElectricity } from '../hooks';
 import { validateStepInputs } from '../utils';

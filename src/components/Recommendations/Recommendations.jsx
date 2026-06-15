@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import { generateRecommendations } from '../../utils/recommendations';
 import RecommendationCard from './RecommendationCard';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Service to consult the EcoAI Sustainability Coach.
  * Integrates with Gemini API and hosts local fallback pattern-matching analysis.

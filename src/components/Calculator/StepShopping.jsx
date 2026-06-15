@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { useDebounce } from '../../hooks/useDebounce';

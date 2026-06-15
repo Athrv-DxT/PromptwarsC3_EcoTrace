@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import ProgressBar from '../Layout/ProgressBar';

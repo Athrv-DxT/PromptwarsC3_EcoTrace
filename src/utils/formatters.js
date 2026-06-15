@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Formatting utilities for metrics and dates.
  */

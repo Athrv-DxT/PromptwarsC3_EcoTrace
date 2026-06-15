@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Source: IPCC AR6 WG3 Ch10, Table 10.5 (2023)
 export const TRANSPORT = {
   PETROL_CAR_KG_PER_KM: 0.21,

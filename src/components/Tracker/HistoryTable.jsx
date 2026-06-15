@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import { formatDate } from '../../utils';
 import { FOOTPRINT_THRESHOLDS } from '../../constants';

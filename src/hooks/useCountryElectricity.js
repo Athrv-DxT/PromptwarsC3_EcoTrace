@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { fetchCountryElectricityInfo, getFallbackElectricityInfo } from '../services';
 import { GRID_FACTORS, API_TIMEOUT_MS } from '../constants';

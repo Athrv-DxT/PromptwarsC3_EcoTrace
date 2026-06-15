@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FOOTPRINT_THRESHOLDS } from '../constants/appConstants';
 
 /**

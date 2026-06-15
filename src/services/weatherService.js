@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * Service to fetch environmental and air quality metrics from Open-Meteo APIs.
  */

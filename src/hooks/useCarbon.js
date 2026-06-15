@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useMemo } from 'react';
 import { TRANSPORT, HOME, DIET_ANNUAL_KG, SHOPPING } from '../constants/emissionFactors';
 

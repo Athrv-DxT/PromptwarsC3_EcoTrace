@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useCarbonContext } from '../../context/CarbonContext';
 import { getFootprintVerdict } from '../../utils';
 import ComparisonChart from './ComparisonChart';

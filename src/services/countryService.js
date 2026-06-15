@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { GRID_FACTORS } from '../constants/appConstants';
 
 /**

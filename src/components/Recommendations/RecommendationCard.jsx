@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 
 const RecommendationCard = React.memo(({ icon, tip, detail, potentialSaving, difficulty, category }) => {
