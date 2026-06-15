@@ -6,6 +6,7 @@ import ComparisonChart from './ComparisonChart';
 import FootprintChart from './FootprintChart';
 import ContextCard from './ContextCard';
 import Tracker from '../Tracker/Tracker';
+import FutureSimulator from './FutureSimulator';
 
 export default function Dashboard() {
   const {
@@ -206,6 +207,9 @@ export default function Dashboard() {
           description="Equivalent to driving a standard petrol vehicle, producing 0.21 kg CO₂e per kilometer."
         />
       </div>
+
+      {/* Future Simulator */}
+      <FutureSimulator />
 
       {/* Goals Tracker */}
       <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-gray-900">

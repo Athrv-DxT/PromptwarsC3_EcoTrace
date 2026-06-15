@@ -2,6 +2,7 @@ import React from 'react';
 import { useCarbonContext } from '../../context/CarbonContext';
 import { generateRecommendations } from '../../utils/recommendations';
 import RecommendationCard from './RecommendationCard';
+import EcoAICoach from './EcoAICoach';
 
 export default function Recommendations() {
   const { breakdown } = useCarbonContext();
@@ -17,6 +18,9 @@ export default function Recommendations() {
           Rule-based tips matching your highest emission areas, sorted by potential impact.
         </p>
       </div>
+
+      {/* AI Sustainability Coach */}
+      <EcoAICoach />
 
       {tips.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
